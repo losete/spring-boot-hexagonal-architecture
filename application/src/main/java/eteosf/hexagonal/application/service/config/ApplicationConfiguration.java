@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ApplicationConfiguration {
 
-    @Bean
-    public ProductService getProductService(ProductPersistencePort productPersistencePort) {
-        return new ProductServiceAdapter(productPersistencePort);
-    }
+  @Bean
+  public ProductService getProductService(ProductPersistencePort productPersistencePort) {
+    return new ProductServiceAdapter(productPersistencePort);
+  }
 }
