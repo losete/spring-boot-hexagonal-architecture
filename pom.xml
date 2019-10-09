@@ -48,6 +48,7 @@
                     </dependencies>
                     <configuration>
                         <configLocation>checkstyle.xml</configLocation>
+                        <violationSeverity>warning</violationSeverity>
                         <failOnViolation>true</failOnViolation>
                         <consoleOutput>true</consoleOutput>
                         <failsOnError>true</failsOnError>
