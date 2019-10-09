@@ -15,22 +15,14 @@
 
     <dependencies>
         <dependency>
-            <groupId>eteosf.hexagonal</groupId>
-            <artifactId>adapter-persistence-spring-data-jpa</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>eteosf.hexagonal</groupId>
-            <artifactId>adapter-rest</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+            <version>2.1.3.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot</artifactId>
+            <version>2.1.3.RELEASE</version>
         </dependency>
     </dependencies>
 
