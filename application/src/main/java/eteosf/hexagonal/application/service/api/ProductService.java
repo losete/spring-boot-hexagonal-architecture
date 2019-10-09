@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface ProductService {
 
-    void addProduct(Product product);
+  void addProduct(Product product);
 
-    void removeProduct(Product product);
+  void removeProduct(Product product);
 
-    List<Product> getProducts();
+  List<Product> getProducts();
 
-    Product getProductById(Integer productId);
+  Product getProductById(Integer productId);
 }

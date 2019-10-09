@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class InMemoryAdapterConfiguration {
 
-    @Bean
-    public ProductPersistencePort getProductPersistencePort() {
-        return new ProductInMemoryAdapter();
-    }
+  @Bean
+  public ProductPersistencePort getProductPersistencePort() {
+    return new ProductInMemoryAdapter();
+  }
 }
