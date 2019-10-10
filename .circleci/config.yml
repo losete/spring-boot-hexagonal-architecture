@@ -3,7 +3,7 @@ version: 2.1
 executors:
   style_check_executor:
     docker: # run the steps with Docker
-      - image: circleci/openjdk:8-jdk-stretch
+      - image: maven
 
 jobs:
   style_checker:
@@ -39,7 +39,7 @@ jobs:
       - save_cache: # saves the project dependencies
           paths:
             - ~/.m2
-            key: circleci-java-spring-hexa-{{ checksum "pom.xml" }}
+          key: circleci-java-spring-hexa-{{ checksum "pom.xml" }}
       - run: mvn package
   deploy:
     executor:
