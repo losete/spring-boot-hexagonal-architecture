@@ -51,17 +51,18 @@ jobs:
 
 workflows:
   general:
-    - style_checker
-    - compile:
-        requires:
-          - style_checker
-    - spotbugs:
-        requires:
-          - compile
-    - package:
-        requires:
-          - compile
-    - deploy:
-        requires:
-          - spotbugs
-          - package
+    jobs:
+      - style_checker
+      - compile:
+          requires:
+            - style_checker
+      - spotbugs:
+          requires:
+            - compile
+      - package:
+          requires:
+            - compile
+      - deploy:
+          requires:
+            - spotbugs
+            - package
