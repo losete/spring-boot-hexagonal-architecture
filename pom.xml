@@ -54,7 +54,7 @@
                     <executions>
                         <execution>
                             <id>quality-metric-spotbugs</id>
-                            <phase>prepare-package</phase>
+                            <phase>test</phase>
                             <goals>
                                 <goal>check</goal>
                             </goals>
