@@ -1,34 +1,34 @@
 version: 2.1
 
 executors:
-  style_check_executor:
+  main_executor:
     docker: # run the steps with Docker
       - image: maven
 
 jobs:
   style_checker:
-    executor:
+    executor: main_executor
     steps:
       - checkout
       - run:
           name: Style test checkstyle (Google stylesheets)
           command: mvn checkstyle:check
   spotbugs:
-    executor:
+    executor: main_executor
     steps:
       - checkout
       - run:
           name: Bug analysis with spotbugs plugin
           command: mvn spotbugs:spotbugs
   compile:
-    executor:
+    executor: main_executor
     steps:
       - checkout
       - run:
           name: Project compilation
           command: mvn compile
   package:
-    executor:
+    executor: main_executor
     steps:
       - checkout
       - restore_cache:
@@ -42,7 +42,7 @@ jobs:
           key: circleci-java-spring-hexa-{{ checksum "pom.xml" }}
       - run: mvn package
   deploy:
-    executor:
+    executor: main_executor
     steps:
       - checkout
       - run:
