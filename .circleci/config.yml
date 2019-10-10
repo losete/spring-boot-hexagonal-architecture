@@ -63,5 +63,5 @@ workflows:
           - compile
     - deploy:
         requires:
-          - spotbug
+          - spotbugs
           - package
