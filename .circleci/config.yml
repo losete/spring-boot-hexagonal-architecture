@@ -56,12 +56,12 @@ workflows:
       - compile:
           requires:
             - style_checker
-      - spotbugs:
-          requires:
-            - compile
       - package:
           requires:
             - compile
+      - spotbugs:
+          requires:
+            - package
       - deploy:
           requires:
             - spotbugs
