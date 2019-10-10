@@ -1,0 +1,67 @@
+version: 2.1
+
+executors:
+  style_check_executor:
+    docker: # run the steps with Docker
+      - image: circleci/openjdk:8-jdk-stretch
+
+jobs:
+  style_checker:
+    executor:
+    steps:
+      - checkout
+      - run:
+          name: Style test checkstyle (Google stylesheets)
+          command: mvn checkstyle:check
+  spotbugs:
+    executor:
+    steps:
+      - checkout
+      - run:
+          name: Bug analysis with spotbugs plugin
+          command: mvn spotbugs:spotbugs
+  compile:
+    executor:
+    steps:
+      - checkout
+      - run:
+          name: Project compilation
+          command: mvn compile
+  package:
+    executor:
+    steps:
+      - checkout
+      - restore_cache:
+          key: circleci-java-spring-hexa-{{ checksum "pom.xml" }}
+
+      - run: mvn dependency:go-offline # gets the project dependencies
+
+      - save_cache: # saves the project dependencies
+          paths:
+            - ~/.m2
+            key: circleci-java-spring-hexa-{{ checksum "pom.xml" }}
+      - run: mvn package
+  deploy:
+    executor:
+    steps:
+      - checkout
+      - run:
+          name: Copies the final package to the remote repository
+          command: mvn deploy
+
+workflows:
+  general:
+    - style_checker
+    - compile:
+        requires:
+          - style_checker
+    - spotbugs:
+        requires:
+          - compile
+    - package:
+        requires:
+          - compile
+    - deploy:
+        requires:
+          - spotbug
+          - package
