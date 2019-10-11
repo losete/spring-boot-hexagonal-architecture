@@ -45,6 +45,7 @@ jobs:
     executor: main_executor
     steps:
       - checkout
+      - mkdir deploy
       - run:
           name: Copies the final package to the remote repository
           command: mvn deploy
