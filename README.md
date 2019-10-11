@@ -30,4 +30,7 @@ Optionally, you can check without other tests if your project contains some type
     $mvn install
     $mvn spotbugs:check
 ```
-mvn install is required due to spotbugs requirements
+Having local libraries compiled is required due to spotbugs requirements. If you do not want to make a install, you can execute the following command:
+```
+    $mvn compile spotbugs:check
+```
