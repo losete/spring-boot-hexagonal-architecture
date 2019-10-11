@@ -84,7 +84,7 @@
                 <executions>
                     <execution>
                         <id>quality-metric-spotbugs</id>
-                        <phase>install</phase>
+                        <phase>compile</phase>
                         <goals>
                             <goal>check</goal>
                         </goals>
@@ -106,8 +106,6 @@
                 </executions>
             </plugin>
         </plugins>
-
-
     </build>
 
     <properties>
