@@ -13,13 +13,13 @@ jobs:
       - run:
           name: Style test checkstyle (Google stylesheets)
           command: mvn checkstyle:check
-  spotbugs:
+  tests:
     executor: main_executor
     steps:
       - checkout
       - run:
-          name: Bug analysis with spotbugs plugin
-          command: mvn spotbugs:spotbugs
+          name: Bug analysis with spotbugs plugin (because there is no tests)
+          command: mvn test
   compile:
     executor: main_executor
     steps:
@@ -56,7 +56,7 @@ workflows:
       - compile:
           requires:
             - style_checker
-      - spotbugs:
+      - tests:
           requires:
             - compile
       - package:
@@ -64,5 +64,5 @@ workflows:
             - compile
       - deploy:
           requires:
-            - spotbugs
+            - tests
             - package
