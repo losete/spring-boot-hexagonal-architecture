@@ -34,7 +34,7 @@ jobs:
       - restore_cache:
           key: circleci-java-spring-hexa-{{ checksum "pom.xml" }}
 
-      - run: mvn dependency:go-offline # gets the project dependencies
+      - run: mvn compile dependency:go-offline # gets the project dependencies
 
       - save_cache: # saves the project dependencies
           paths:
