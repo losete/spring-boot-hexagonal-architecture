@@ -6,9 +6,6 @@ executors:
       - image: circleci/openjdk:8-jdk-stretch
 
 jobs:
-  install:
-    executor:
-
   validate:
     executor: main_executor
     steps:
