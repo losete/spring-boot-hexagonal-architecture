@@ -1,0 +1,71 @@
+version: 2.1
+
+executors:
+  main_executor:
+    docker: # run the steps with Docker
+      - image: maven
+
+jobs:
+  style_checker:
+    executor: main_executor
+    steps:
+      - checkout
+      - run:
+          name: Style test checkstyle (Google stylesheets)
+          command: mvn checkstyle:check
+  tests:
+    executor: main_executor
+    steps:
+      - checkout
+      - run:
+          name: Bug analysis with spotbugs plugin (because there is no tests)
+          command: mvn test
+  compile:
+    executor: main_executor
+    steps:
+      - checkout
+      - run:
+          name: Project compilation
+          command: mvn compile
+  package:
+    executor: main_executor
+    steps:
+      - checkout
+      - restore_cache:
+          key: circleci-java-spring-hexa-{{ cat `find "$(pwd)" -name pom.xml` | sha1sum }}
+
+      - run: mvn compile dependency:go-offline # gets the project dependencies
+
+      - save_cache: # saves the project dependencies
+          paths:
+            - ~/.m2
+          key: circleci-java-spring-hexa-{{ cat `find "$(pwd)" -name pom.xml` | sha1sum }}
+      - run: mvn package
+  deploy:
+    executor: main_executor
+    steps:
+      - checkout
+      - run:
+           name: Creates the directory for the deploying
+           command: mkdir deploy
+      - run:
+          name: Copies the final package to the remote repository
+          command: mvn deploy
+
+workflows:
+  general:
+    jobs:
+      - style_checker
+      - compile:
+          requires:
+            - style_checker
+      - tests:
+          requires:
+            - compile
+      - package:
+          requires:
+            - compile
+      - deploy:
+          requires:
+            - tests
+            - package
