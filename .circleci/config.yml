@@ -3,9 +3,12 @@ version: 2.1
 executors:
   main_executor:
     docker: # run the steps with Docker
-      - image: maven
+      - image: circleci/openjdk:8-jdk-stretch
 
 jobs:
+  install:
+    executor:
+
   validate:
     executor: main_executor
     steps:
@@ -47,14 +50,14 @@ jobs:
       - attach_workspace:
           at: .
       - restore_cache:
-          key: circleci-java-spring-hexa-{{ find "$(pwd)" -name pom.xml | checksum }}
+          key: circleci-java-spring-hexa-{{ cat `find "$(pwd)" -name pom.xml` | checksum }}
 
       - run: mvn compile dependency:go-offline # gets the project dependencies
 
       - save_cache: # saves the project dependencies
           paths:
             - ~/.m2
-          key: circleci-java-spring-hexa-{{ find "$(pwd)" -name pom.xml | checksum }}
+          key: circleci-java-spring-hexa-{{ cat `find "$(pwd)" -name pom.xml` | checksum }}
       - run: mvn package
       - persist_to_workspace:
           root: .
