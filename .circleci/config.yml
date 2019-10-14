@@ -62,7 +62,7 @@ jobs:
 workflows:
   general:
     jobs:
-      - style_checker
+      - validate
       - compile:
           requires:
             - style_checker
