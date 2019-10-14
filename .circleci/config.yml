@@ -32,14 +32,14 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: circleci-java-spring-hexa-{{ checksum "pom.xml" }}
+          key: circleci-java-spring-hexa-{{ cat `find "$(pwd)" -name pom.xml` | sha1sum }}
 
       - run: mvn compile dependency:go-offline # gets the project dependencies
 
       - save_cache: # saves the project dependencies
           paths:
             - ~/.m2
-          key: circleci-java-spring-hexa-{{ checksum "pom.xml" }}
+          key: circleci-java-spring-hexa-{{ cat `find "$(pwd)" -name pom.xml` | sha1sum }}
       - run: mvn package
   deploy:
     executor: main_executor
