@@ -46,7 +46,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - command: cat `find "$(pwd)" -name pom.xml` > ~/aux.xml
+      - run: cat `find "$(pwd)" -name pom.xml` > ~/aux.xml
       - restore_cache:
           key: circleci-java-spring-hexa-{{ checksum ~/aux.xml }}
 
