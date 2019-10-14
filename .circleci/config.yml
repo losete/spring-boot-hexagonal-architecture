@@ -15,8 +15,6 @@ jobs:
           command: mvn validate
       - persist_to_workspace:
           root: .
-          paths:
-            - target/
   tests:
     executor: main_executor
     steps:
