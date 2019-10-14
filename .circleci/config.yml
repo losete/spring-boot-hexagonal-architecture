@@ -20,7 +20,8 @@ jobs:
   tests:
     executor: main_executor
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
       - run:
           name: Bug analysis with spotbugs plugin (because there is no tests)
           command: mvn test
@@ -29,14 +30,18 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - checkout
       - run:
           name: Project compilation
           command: mvn compile
+      - persist_to_workspace:
+          root: .
+          paths:
+            - target/
   package:
     executor: main_executor
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
       - restore_cache:
           key: circleci-java-spring-hexa-{{ cat `find "$(pwd)" -name pom.xml` | sha1sum }}
 
@@ -50,7 +55,8 @@ jobs:
   deploy:
     executor: main_executor
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
       - run:
            name: Creates the directory for the deploying
            command: mkdir deploy
