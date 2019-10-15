@@ -88,3 +88,7 @@ workflows:
       - deploy:
           requires:
             - package
+          filters:
+            branches:
+              only:
+                - master
