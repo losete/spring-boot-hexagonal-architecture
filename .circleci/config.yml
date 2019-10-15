@@ -3,7 +3,7 @@ version: 2.1
 executors:
   main_executor:
     docker: # run the steps with Docker
-      - image: circleci/openjdk:8-jdk-stretch
+      - image: maven
 
 jobs:
   validate:
