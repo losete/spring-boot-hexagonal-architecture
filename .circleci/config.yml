@@ -50,13 +50,12 @@ jobs:
       - restore_cache:
           key: circleci-java-spring-hexa-{{ checksum "~/aux.xml" }}
 
-      - run: mvn compile dependency:go-offline # gets the project dependencies
+      - run: mvn package dependency:go-offline # gets the project dependencies
 
       - save_cache: # saves the project dependencies
           paths:
             - ~/.m2
           key: circleci-java-spring-hexa-{{ checksum "~/aux.xml" }}
-      - run: mvn package
       - persist_to_workspace:
           root: .
           paths:
