@@ -23,7 +23,7 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: Bug analysis with spotbugs plugin (because there is no tests)
+          name: Test analysis
           command: mvn test
       - persist_to_workspace:
           root: .
@@ -62,6 +62,19 @@ jobs:
           root: .
           paths:
             - .
+
+  verify:
+    executor: main_executor
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Verification (including spotbugs)
+          command: mvn verify
+      - persist_to_workspace:
+          root: .
+          paths:
+
   deploy:
     executor: main_executor
     steps:
@@ -87,9 +100,12 @@ workflows:
       - package:
           requires:
             - tests
-      - deploy:
+      - verify:
           requires:
             - package
+      - deploy:
+          requires:
+            - verify
           filters:
             branches:
               only:
