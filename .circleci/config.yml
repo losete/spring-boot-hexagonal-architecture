@@ -48,7 +48,9 @@ jobs:
           at: .
       - run: cat `find "$(pwd)" -name pom.xml` > ~/aux.xml
       - restore_cache:
-          key: circleci-java-spring-hexa-{{ checksum "~/aux.xml" }}
+          keys:
+            - circleci-java-spring-hexa-{{ checksum "~/aux.xml" }}
+            - circleci-java-spring-hexa-
 
       - run: mvn package dependency:go-offline # gets the project dependencies
 
