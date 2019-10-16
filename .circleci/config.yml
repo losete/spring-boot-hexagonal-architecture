@@ -20,20 +20,20 @@ jobs:
             mkdir checkstyle_results/application
             mkdir checkstyle_results/bootloader
             mkdir checkstyle_results/domain
-            mkdir checkstyle_results/infraestructure
-            mkdir checkstyle_results/infraestructure/adapter-persistence-in-memory
-            mkdir checkstyle_results/infraestructure/adapter-persistence-spring-data-jpa
-            mkdir checkstyle_results/infraestructure/adapter-persistence-spring-data-mongodb
-            mkdir checkstyle_results/infraestructure/adapter-rest
+            mkdir checkstyle_results/infrastructure
+            mkdir checkstyle_results/infrastructure/adapter-persistence-in-memory
+            mkdir checkstyle_results/infrastructure/adapter-persistence-spring-data-jpa
+            mkdir checkstyle_results/infrastructure/adapter-persistence-spring-data-mongodb
+            mkdir checkstyle_results/infrastructure/adapter-rest
             cp target/checkstyle-result.xml checkstyle_results
             cp application/target/checkstyle-result.xml checkstyle_results/application
             cp bootloader/target/checkstyle-result.xml checkstyle_results/bootloader
             cp domain/target/checkstyle-result.xml checkstyle_results/domain
-            cp infraestructure/target/checkstyle-result.xml checkstyle_results/infraestructure
-            cp infraestructure/adapter-persistence-in-memory/target/checkstyle-result.xml checkstyle_results/infraestructure/adapter-persistence-in-memory/
-            cp infraestructure/adapter-persistence-spring-data-jpa/target/checkstyle-result.xml checkstyle_results/infraestructure/adapter-persistence-spring-data-jpa/
-            cp infraestructure/adapter-persistence-spring-data-mongodb/target/checkstyle-result.xml checkstyle_results/infraestructure/adapter-persistence-spring-data-mongodb/
-            cp infraestructure/adapter-rest/target/checkstyle-result.xml checkstyle_results/infraestructure/adapter-rest/
+            cp infrastructure/target/checkstyle-result.xml checkstyle_results/infrastructure
+            cp infrastructure/adapter-persistence-in-memory/target/checkstyle-result.xml checkstyle_results/infrastructure/adapter-persistence-in-memory/
+            cp infrastructure/adapter-persistence-spring-data-jpa/target/checkstyle-result.xml checkstyle_results/infrastructure/adapter-persistence-spring-data-jpa/
+            cp infrastructure/adapter-persistence-spring-data-mongodb/target/checkstyle-result.xml checkstyle_results/infrastructure/adapter-persistence-spring-data-mongodb/
+            cp infrastructure/adapter-rest/target/checkstyle-result.xml checkstyle_results/infrastructure/adapter-rest/
       - store_artifacts:
           path: checkstyle_results
           destination: checkstyle_results
