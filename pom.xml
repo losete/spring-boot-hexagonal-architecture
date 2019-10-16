@@ -51,7 +51,7 @@
                             <executable>mvn</executable>
                             <arguments>
                                 <argument>compile</argument>
-                                <argument>com.github.spotbugs:spotbugs-maven-plugin:check</argument>
+                                <argument>spotbugs:check</argument>
                             </arguments>
                         </configuration>
                     </plugin>
