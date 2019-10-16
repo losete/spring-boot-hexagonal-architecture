@@ -17,10 +17,9 @@ jobs:
           name: Saves checkstye results
           command: |
             mkdir checkstyle_results
-            mkdir checkstyle_results/shared-kernel
-            mkdir checkstyle_results/product-catalog
-            mkdir checkstyle_results/shipping
-            mkdir checkstyle_results/invoicing
+            mkdir checkstyle_results/application
+            mkdir checkstyle_results/bootloader
+            mkdir checkstyle_results/domain
             mkdir checkstyle_results/infraestructure
             mkdir checkstyle_results/infraestructure/adapter-persistence-in-memory
             mkdir checkstyle_results/infraestructure/adapter-persistence-spring-data-jpa
@@ -29,7 +28,6 @@ jobs:
             cp target/checkstyle-result.xml checkstyle_results
             cp application/target/checkstyle-result.xml checkstyle_results/application
             cp bootloader/target/checkstyle-result.xml checkstyle_results/bootloader
-            cp deploy/target/checkstyle-result.xml checkstyle_results/deploy
             cp domain/target/checkstyle-result.xml checkstyle_results/domain
             cp infraestructure/target/checkstyle-result.xml checkstyle_results/infraestructure
             cp infraestructure/adapter-persistence-in-memory/target/checkstyle-result.xml checkstyle_results/infraestructure/adapter-persistence-in-memory/
