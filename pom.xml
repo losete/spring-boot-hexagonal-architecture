@@ -41,32 +41,34 @@
                 </property>
             </activation>
             <build>
-                <finalName>${project.artifactId}-${project.version}-v</finalName>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.codehaus.mojo</groupId>
-                            <artifactId>exec-maven-plugin</artifactId>
-                            <version>1.6.0</version>
-                            <executions>
-                                <execution>
-                                    <id>default-cli</id>
-                                    <configuration>
-                                        <executable>mvn</executable>
-                                        <arguments>
-                                            <argument>
-                                                compile
-                                            </argument>
-                                            <argument>
-                                                spotbugs:check
-                                            </argument>
-                                        </arguments>
-                                    </configuration>
-                                </execution>
-                            </executions>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
+                <plugins>
+                    <plugin>
+                        <!-- mvn exec:exec -Pspotbugs -->
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.6.0</version>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>
+                                    compile
+                                </argument>
+                                <argument>
+                                    spotbugs:check
+                                </argument>
+                            </arguments>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>default-cli</id>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
             </build>
         </profile>
     </profiles>
