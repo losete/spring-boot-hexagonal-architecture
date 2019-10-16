@@ -31,6 +31,46 @@
     <artifactId>hexagonal-architecture-poc</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
+    <profiles>
+        <profile>
+            <id>spotbugs</id>
+            <activation>
+                <property>
+                    <name>spotbugs</name>
+                    <value>dev</value>
+                </property>
+            </activation>
+            <build>
+                <finalName>${project.artifactId}-${project.version}-v</finalName>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>exec-maven-plugin</artifactId>
+                            <version>1.6.0</version>
+                            <executions>
+                                <execution>
+                                    <id>default-cli</id>
+                                    <configuration>
+                                        <executable>mvn</executable>
+                                        <arguments>
+                                            <argument>
+                                                compile
+                                            </argument>
+                                            <argument>
+                                                spotbugs:check
+                                            </argument>
+                                        </arguments>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+    </profiles>
+
     <build>
         <finalName>${project.artifactId}-${project.version}-v</finalName>
         <pluginManagement>
