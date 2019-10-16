@@ -50,23 +50,10 @@
                         <configuration>
                             <executable>mvn</executable>
                             <arguments>
-                                <argument>
-                                    compile
-                                </argument>
-                                <argument>
-                                    spotbugs:check
-                                </argument>
+                                <argument>compile</argument>
+                                <argument>com.github.spotbugs:spotbugs-maven-plugin:check</argument>
                             </arguments>
                         </configuration>
-                        <executions>
-                            <execution>
-                                <id>default-cli</id>
-                                <phase>compile</phase>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                     </plugin>
                 </plugins>
             </build>
