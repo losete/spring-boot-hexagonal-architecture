@@ -53,9 +53,7 @@ jobs:
           name: Save tests results
           command: |
             mkdir -p tests_results/unit
-            cp domain/target/surefire-reports/TEST-* tests_results/unit
-            cp infrastructure/adapter-persistence-spring-data-jpa/target/surefire-reports/TEST-* tests_results/unit
-            cp infrastructure/adapter-persistence-spring-data-jpa/target/surefire-reports/testng-results.xml tests_results/unit
+            find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} ~/test-results/ \;
       - store_test_results:
           path: tests_results
       - persist_to_workspace:
