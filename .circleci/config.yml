@@ -120,9 +120,9 @@ jobs:
             cp infrastructure/adapter-persistence-in-memory/target/spotbugsXml.xml spotbugs_results/infrastructure/adapter-persistence-in-memory/
             cp infrastructure/adapter-persistence-spring-data-jpa/target/spotbugsXml.xml spotbugs_results/infrastructure/adapter-persistence-spring-data-jpa/
             cp infrastructure/adapter-rest/target/spotbugsXml.xml spotbugs_results/infrastructure/adapter-rest/
-        - store_artifacts:
-            path: spotbugs_results
-            destination: spotbugs_results
+      - store_artifacts:
+          path: spotbugs_results
+          destination: spotbugs_results
       - persist_to_workspace:
           root: .
           paths:
