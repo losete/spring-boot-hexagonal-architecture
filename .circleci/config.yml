@@ -25,7 +25,15 @@ jobs:
             mkdir checkstyle_results/infrastructure/adapter-persistence-spring-data-jpa
             mkdir checkstyle_results/infrastructure/adapter-persistence-spring-data-mongodb
             mkdir checkstyle_results/infrastructure/adapter-rest
-            find . -type f -regex ".*/target/checkstyle-result.xml" -exec cp {} checkstyle_results/ \;
+            cp target/checkstyle-result.xml checkstyle_results
+            cp application/target/checkstyle-result.xml checkstyle_results/application
+            cp bootloader/target/checkstyle-result.xml checkstyle_results/bootloader
+            cp domain/target/checkstyle-result.xml checkstyle_results/domain
+            cp infrastructure/target/checkstyle-result.xml checkstyle_results/infrastructure
+            cp infrastructure/adapter-persistence-in-memory/target/checkstyle-result.xml checkstyle_results/infrastructure/adapter-persistence-in-memory/
+            cp infrastructure/adapter-persistence-spring-data-jpa/target/checkstyle-result.xml checkstyle_results/infrastructure/adapter-persistence-spring-data-jpa/
+            cp infrastructure/adapter-persistence-spring-data-mongodb/target/checkstyle-result.xml checkstyle_results/infrastructure/adapter-persistence-spring-data-mongodb/
+            cp infrastructure/adapter-rest/target/checkstyle-result.xml checkstyle_results/infrastructure/adapter-rest/
       - store_artifacts:
           path: checkstyle_results
           destination: checkstyle_results
@@ -45,7 +53,9 @@ jobs:
           name: Save tests results
           command: |
             mkdir -p tests_results/unit
-            find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} tests_results/unit \;
+            cp domain/target/surefire-reports/TEST-* tests_results/unit
+            cp infrastructure/adapter-persistence-spring-data-jpa/target/surefire-reports/TEST-* tests_results/unit
+            cp infrastructure/adapter-persistence-spring-data-jpa/target/surefire-reports/testng-results.xml tests_results/unit
       - store_test_results:
           path: tests_results
       - persist_to_workspace:
