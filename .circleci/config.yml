@@ -14,18 +14,10 @@ jobs:
           name: Validation and style test checkstyle (Google stylesheets)
           command: mvn validate
       - run:
-          name: Saves checkstye results
+          name: Save checkstyle results
           command: |
             mkdir checkstyle_results
-            mkdir checkstyle_results/application
-            mkdir checkstyle_results/bootloader
-            mkdir checkstyle_results/domain
-            mkdir checkstyle_results/infrastructure
-            mkdir checkstyle_results/infrastructure/adapter-persistence-in-memory
-            mkdir checkstyle_results/infrastructure/adapter-persistence-spring-data-jpa
-            mkdir checkstyle_results/infrastructure/adapter-persistence-spring-data-mongodb
-            mkdir checkstyle_results/infrastructure/adapter-rest
-            find . -type f -regex ".*/target/checkstyle-result.xml" -exec cp --parents {} ~/checkstyle_results/ \;
+            find . -type f -regex ".*/target/checkstyle-result.xml" -exec cp --parents {} checkstyle_results/ \;
       - store_artifacts:
           path: checkstyle_results
           destination: checkstyle_results
