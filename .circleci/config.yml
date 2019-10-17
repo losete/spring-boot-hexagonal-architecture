@@ -90,19 +90,7 @@ jobs:
           name: Save spotbugs check results
           command: |
             mkdir spotbugs_results
-            mkdir spotbugs_results/application
-            mkdir spotbugs_results/bootloader
-            mkdir spotbugs_results/domain
-            mkdir spotbugs_results/infrastructure
-            mkdir spotbugs_results/infrastructure/adapter-persistence-in-memory
-            mkdir spotbugs_results/infrastructure/adapter-persistence-spring-data-jpa
-            mkdir spotbugs_results/infrastructure/adapter-rest
-            cp application/target/spotbugsXml.xml spotbugs_results/application
-            cp bootloader/target/spotbugsXml.xml spotbugs_results/bootloader
-            cp domain/target/spotbugsXml.xml spotbugs_results/domain
-            cp infrastructure/adapter-persistence-in-memory/target/spotbugsXml.xml spotbugs_results/infrastructure/adapter-persistence-in-memory/
-            cp infrastructure/adapter-persistence-spring-data-jpa/target/spotbugsXml.xml spotbugs_results/infrastructure/adapter-persistence-spring-data-jpa/
-            cp infrastructure/adapter-rest/target/spotbugsXml.xml spotbugs_results/infrastructure/adapter-rest/
+            find . -type f -regex ".*/target/spotbugsXml.xml" -exec cp --parents {} spotbugs_results/ \;
       - store_artifacts:
           path: spotbugs_results
           destination: spotbugs_results
