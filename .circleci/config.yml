@@ -57,7 +57,6 @@ jobs:
             cp infrastructure/adapter-persistence-spring-data-jpa/target/surefire-reports/testng-results.xml tests_results/unit
       - store_test_results:
           path: tests_results
-          destination: tests_results
       - persist_to_workspace:
           root: .
           paths:
