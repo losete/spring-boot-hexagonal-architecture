@@ -1,0 +1,3 @@
+[submodule "documentationMavenCICD"]
+	path = documentationMavenCICD
+	url = https://github.com/TorusNewies/documentationMavenCICD
