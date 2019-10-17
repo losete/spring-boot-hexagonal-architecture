@@ -86,7 +86,7 @@ jobs:
           name: Verification (including spotbugs)
           command: mvn verify
       - run:
-          name: Save spotbugs check results
+          name: Save spotbugs results
           command: |
             mkdir spotbugs_results
             find . -type f -regex ".*/target/spotbugsXml.xml" -exec cp --parents {} spotbugs_results/ \;
@@ -104,10 +104,10 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-           name: Creates the directory for the deploying
+           name: Creates the directory for the deploying (test)
            command: mkdir deploy
       - run:
-          name: Copies the final package to the remote repository
+          name: Copies the final package to the remote repository (test)
           command: mvn deploy
 
 workflows:
