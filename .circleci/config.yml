@@ -53,7 +53,7 @@ jobs:
           name: Save tests results
           command: |
             mkdir -p tests_results/unit
-            find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} test-results/unit \;
+            find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} test_results/unit \;
       - store_test_results:
           path: tests_results
       - persist_to_workspace:
