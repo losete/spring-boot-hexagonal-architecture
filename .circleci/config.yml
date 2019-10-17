@@ -64,7 +64,8 @@ jobs:
       - run: find . -name 'pom.xml' | sort | xargs cat > ~/aux.xml
       - restore_cache:
           keys:
-            - circleci-java-spring-hexa-{{ checksum "~/aux.xml" }}
+            - circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "~/aux.xml" }}
+            - circleci-java-spring-hexa-{{ .Branch }}
             - circleci-java-spring-hexa-
       - run: mvn package dependency:go-offline
       - save_cache:
