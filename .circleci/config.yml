@@ -61,8 +61,8 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - run: sha1sum pom.xml **/pom.xml **/**/pom.xml > ~/aux.xml
-      - restore_cache: 
+      - run: find . -name 'pom.xml' | sort | xargs cat > ~/aux.xml
+      - restore_cache:
           keys:
             - circleci-java-spring-hexa-{{ checksum "~/aux.xml" }}
             - circleci-java-spring-hexa-
