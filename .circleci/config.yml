@@ -81,7 +81,7 @@ jobs:
           name: Save checkstyle results
           command: |
             mkdir checkstyle_results
-            find . -type f -regex ".*/target/checkstyle-result.xml" -exec cp --parents {} checkstyle_results/ \;
+            find . -type f -regex ".*/target/checkstyle-result.xml" -not -path "./checkstyle_results/*" -exec cp --parents {} checkstyle_results/ \;
       - store_artifacts:
           path: checkstyle_results
           destination: check_results
@@ -89,7 +89,7 @@ jobs:
           name: Save spotbugs results
           command: |
             mkdir spotbugs_results
-            find . -type f -regex ".*/target/spotbugsXml.xml" -exec cp --parents {} spotbugs_results/ \;
+            find . -type f -regex ".*/target/spotbugsXml.xml" -not -path "./spotbugs_results/*" -exec cp --parents {} spotbugs_results/ \;
       - store_artifacts:
           path: spotbugs_results
           destination: check_results
