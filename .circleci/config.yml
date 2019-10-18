@@ -22,7 +22,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - '*'
+            - .
   tests:
     executor: main_executor
     steps:
@@ -46,7 +46,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - '*'
+            - .
   compile:
     executor: main_executor
     steps:
@@ -63,8 +63,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - '*'
-            - ~/.m2
+            - .
   package:
     executor: main_executor
     steps:
@@ -83,8 +82,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - '*'
-            - ~/.m2
+            - .
 
   verify:
     executor: main_executor
@@ -116,8 +114,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - '*'
-            - ~/.m2
+            - .
 
   deploy:
     executor: main_executor
