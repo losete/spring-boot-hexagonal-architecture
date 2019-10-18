@@ -22,8 +22,8 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - ~/project/
-            - ~/.m2
+            - project/
+            - .m2
   tests:
     executor: main_executor
     steps:
@@ -43,8 +43,8 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - ~/project/
-            - ~/.m2
+            - project/
+            - .m2
   compile:
     executor: main_executor
     steps:
@@ -57,8 +57,8 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - ~/project/
-            - ~/.m2
+            - project/
+            - .m2
   package:
     executor: main_executor
     steps:
@@ -73,8 +73,8 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - ~/project/
-            - ~/.m2
+            - project/
+            - .m2
 
   verify:
     executor: main_executor
@@ -102,8 +102,8 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - ~/project/
-            - ~/.m2
+            - project/
+            - .m2
 
   deploy:
     executor: main_executor
