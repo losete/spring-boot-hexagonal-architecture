@@ -5,6 +5,20 @@ executors:
     docker: # run the steps with Docker
       - image: maven
 
+commands:
+  save_checkstyle_results:
+    description: Save checkstyle results and store them as artifacts
+    steps:
+      - run:
+          name: Save checkstyle results
+          command: |
+            mkdir checkstyle_results
+            find . -type f -regex ".*/target/checkstyle-result.xml" -exec cp --parents {} checkstyle_results/ \;
+      - save_checkstyle_results:
+      - store_artifacts:
+          path: checkstyle_results
+          destination: checkstyle_results
+
 jobs:
   validate:
     executor: main_executor
@@ -13,14 +27,6 @@ jobs:
       - run:
           name: Validation and style test checkstyle (Google stylesheets)
           command: mvn validate
-      - run:
-          name: Save checkstyle results
-          command: |
-            mkdir checkstyle_results
-            find . -type f -regex ".*/target/checkstyle-result.xml" -exec cp --parents {} checkstyle_results/ \;
-      - store_artifacts:
-          path: checkstyle_results
-          destination: checkstyle_results
       - persist_to_workspace:
           root: .
           paths:
