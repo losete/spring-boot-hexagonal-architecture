@@ -29,7 +29,6 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - run: cd ~/project
       - run:
           name: Test analysis
           command: mvn test
