@@ -80,19 +80,17 @@ jobs:
       - run:
           name: Save checkstyle results
           command: |
-            mkdir checkstyle_results
-            find . -type f -regex ".*/target/checkstyle-result.xml" -not -path "./checkstyle_results/*" -exec cp --parents {} checkstyle_results/ \;
-      - store_artifacts:
-          path: checkstyle_results
-          destination: check_results
+            mkdir check_results
+            find . -type f -regex ".*/target/checkstyle-result.xml" -not -path "./check_results/*" -exec cp --parents {} check_results/ \;
       - run:
           name: Save spotbugs results
-          command: |
-            mkdir spotbugs_results
-            find . -type f -regex ".*/target/spotbugsXml.xml" -not -path "./spotbugs_results/*" -exec cp --parents {} spotbugs_results/ \;
+          command: find . -type f -regex ".*/target/spotbugsXml.xml" -not -path "./check_results/*" -exec cp --parents {} check_results/ \;
+      - run:
+          name: Package tests
+          command: tar -cvzf results.tar.gz check_results
       - store_artifacts:
-          path: spotbugs_results
-          destination: check_results
+          path: results.tar.gz
+          destination: results
       - persist_to_workspace:
           root: .
           paths:
