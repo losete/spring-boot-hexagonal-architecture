@@ -10,19 +10,29 @@ jobs:
     executor: main_executor
     steps:
       - checkout
+      - run: find . -name 'pom.xml' | sort | xargs cat > ~/aux.xml
+      - restore_cache:
+          keys:
+            - circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "~/aux.xml" }}
+            - circleci-java-spring-hexa-{{ .Branch }}-
+            - circleci-java-spring-hexa-
       - run:
           name: Validation and style test checkstyle (Google stylesheets)
           command: mvn validate
       - persist_to_workspace:
           root: .
           paths:
-            - .
-            - ~/.m2
+            - '*'
   tests:
     executor: main_executor
     steps:
       - attach_workspace:
           at: .
+      - restore_cache:
+          keys:
+            - circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "~/aux.xml" }}
+            - circleci-java-spring-hexa-{{ .Branch }}-
+            - circleci-java-spring-hexa-
       - run:
           name: Test analysis
           command: mvn test
@@ -36,27 +46,30 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - .
-            - ~/.m2
+            - '*'
   compile:
     executor: main_executor
     steps:
       - attach_workspace:
           at: .
+      - restore_cache:
+          keys:
+            - circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "~/aux.xml" }}
+            - circleci-java-spring-hexa-{{ .Branch }}-
+            - circleci-java-spring-hexa-
       - run:
           name: Project compilation
           command: mvn compile
       - persist_to_workspace:
           root: .
           paths:
-            - .
+            - '*'
             - ~/.m2
   package:
     executor: main_executor
     steps:
       - attach_workspace:
           at: .
-      - run: find . -name 'pom.xml' | sort | xargs cat > ~/aux.xml
       - restore_cache:
           keys:
             - circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "~/aux.xml" }}
@@ -70,7 +83,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - .
+            - '*'
             - ~/.m2
 
   verify:
@@ -78,6 +91,11 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - restore_cache:
+          keys:
+            - circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "~/aux.xml" }}
+            - circleci-java-spring-hexa-{{ .Branch }}-
+            - circleci-java-spring-hexa-
       - run:
           name: Verification (including spotbugs)
           command: mvn verify
@@ -98,7 +116,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - .
+            - '*'
             - ~/.m2
 
   deploy:
@@ -106,6 +124,11 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - restore_cache:
+          keys:
+            - circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "~/aux.xml" }}
+            - circleci-java-spring-hexa-{{ .Branch }}-
+            - circleci-java-spring-hexa-
       - run:
            name: Creates the directory for the deploying (test)
            command: mkdir deploy
