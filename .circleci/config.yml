@@ -30,7 +30,7 @@ jobs:
       - attach_workspace:
           at: ~/
       - run: ls
-      - run: cd project
+      - run: cd ~/project
       - run:
           name: Test analysis
           command: mvn test
