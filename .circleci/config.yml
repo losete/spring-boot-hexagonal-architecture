@@ -20,19 +20,16 @@ jobs:
           name: Validation and style test checkstyle (Google stylesheets)
           command: mvn validate
       - persist_to_workspace:
-          root: .
+          root: ~/
           paths:
-            - .
+            - ~/project/
+            - ~/.m2
   tests:
     executor: main_executor
     steps:
       - attach_workspace:
-          at: .
-      - restore_cache:
-          keys:
-            - circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "aux.xml" }}
-            - circleci-java-spring-hexa-{{ .Branch }}-
-            - circleci-java-spring-hexa-
+          at: ~/
+      - run: cd project
       - run:
           name: Test analysis
           command: mvn test
@@ -44,56 +41,47 @@ jobs:
       - store_test_results:
           path: tests_results
       - persist_to_workspace:
-          root: .
+          root: ~/
           paths:
-            - .
+            - ~/project/
+            - ~/.m2
   compile:
     executor: main_executor
     steps:
       - attach_workspace:
-          at: .
-      - restore_cache:
-          keys:
-            - circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "aux.xml" }}
-            - circleci-java-spring-hexa-{{ .Branch }}-
-            - circleci-java-spring-hexa-
+          at: ~/
+      - run: cd project
       - run:
           name: Project compilation
           command: mvn compile
       - persist_to_workspace:
-          root: .
+          root: ~/
           paths:
-            - .
+            - ~/project/
+            - ~/.m2
   package:
     executor: main_executor
     steps:
       - attach_workspace:
-          at: .
-      - restore_cache:
-          keys:
-            - circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "aux.xml" }}
-            - circleci-java-spring-hexa-{{ .Branch }}-
-            - circleci-java-spring-hexa-
+          at: ~/
+      - run: cd project
       - run: mvn package dependency:go-offline
       - save_cache:
           paths:
             - ~/.m2
           key: circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "aux.xml" }}
       - persist_to_workspace:
-          root: .
+          root: ~/
           paths:
-            - .
+            - ~/project/
+            - ~/.m2
 
   verify:
     executor: main_executor
     steps:
       - attach_workspace:
-          at: .
-      - restore_cache:
-          keys:
-            - circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "aux.xml" }}
-            - circleci-java-spring-hexa-{{ .Branch }}-
-            - circleci-java-spring-hexa-
+          at: ~/
+      - run: cd project
       - run:
           name: Verification (including spotbugs)
           command: mvn verify
@@ -112,20 +100,17 @@ jobs:
           path: results.tar.gz
           destination: results.tar.gz
       - persist_to_workspace:
-          root: .
+          root: ~/
           paths:
-            - .
+            - ~/project/
+            - ~/.m2
 
   deploy:
     executor: main_executor
     steps:
       - attach_workspace:
-          at: .
-      - restore_cache:
-          keys:
-            - circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "~/aux.xml" }}
-            - circleci-java-spring-hexa-{{ .Branch }}-
-            - circleci-java-spring-hexa-
+          at: ~/
+      - run: cd project
       - run:
            name: Creates the directory for the deploying (test)
            command: mkdir deploy
