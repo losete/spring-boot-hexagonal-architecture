@@ -10,10 +10,10 @@ jobs:
     executor: main_executor
     steps:
       - checkout
-      - run: find . -name 'pom.xml' | sort | xargs cat > ~/aux.xml
+      - run: find . -name 'pom.xml' | sort | xargs cat > aux.xml
       - restore_cache:
           keys:
-            - circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "~/aux.xml" }}
+            - circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "aux.xml" }}
             - circleci-java-spring-hexa-{{ .Branch }}-
             - circleci-java-spring-hexa-
       - run:
@@ -30,7 +30,7 @@ jobs:
           at: .
       - restore_cache:
           keys:
-            - circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "~/aux.xml" }}
+            - circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "aux.xml" }}
             - circleci-java-spring-hexa-{{ .Branch }}-
             - circleci-java-spring-hexa-
       - run:
@@ -54,7 +54,7 @@ jobs:
           at: .
       - restore_cache:
           keys:
-            - circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "~/aux.xml" }}
+            - circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "aux.xml" }}
             - circleci-java-spring-hexa-{{ .Branch }}-
             - circleci-java-spring-hexa-
       - run:
@@ -71,14 +71,14 @@ jobs:
           at: .
       - restore_cache:
           keys:
-            - circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "~/aux.xml" }}
+            - circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "aux.xml" }}
             - circleci-java-spring-hexa-{{ .Branch }}-
             - circleci-java-spring-hexa-
       - run: mvn package dependency:go-offline
       - save_cache:
           paths:
             - ~/.m2
-          key: circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "~/aux.xml" }}
+          key: circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "aux.xml" }}
       - persist_to_workspace:
           root: .
           paths:
@@ -91,7 +91,7 @@ jobs:
           at: .
       - restore_cache:
           keys:
-            - circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "~/aux.xml" }}
+            - circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "aux.xml" }}
             - circleci-java-spring-hexa-{{ .Branch }}-
             - circleci-java-spring-hexa-
       - run:
