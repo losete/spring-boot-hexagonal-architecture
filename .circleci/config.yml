@@ -49,7 +49,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - run: cd project
+      - run: cd ~/project
       - run:
           name: Project compilation
           command: mvn compile
