@@ -77,16 +77,6 @@ jobs:
       - run:
           name: Verification (including spotbugs)
           command: mvn verify
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-
-  deploy:
-    executor: main_executor
-    steps:
-      - attach_workspace:
-          at: .
       - run:
           name: Save checkstyle results
           command: |
@@ -103,6 +93,16 @@ jobs:
       - store_artifacts:
           path: spotbugs_results
           destination: check_results
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  deploy:
+    executor: main_executor
+    steps:
+      - attach_workspace:
+          at: .
       - run:
            name: Creates the directory for the deploying (test)
            command: mkdir deploy
