@@ -2,6 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <!-- POM Relationships -->
+
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>eteosf.hexagonal</groupId>
@@ -19,6 +22,8 @@
     <module>bootloader</module>
   </modules>
 
+  <!-- Enviroment settings -->
+
   <properties>
     <java.version>1.8</java.version>
     <maven.compiler.source>11</maven.compiler.source>
@@ -27,6 +32,8 @@
     <spring-boot.version>2.1.8.RELEASE</spring-boot.version>
     <spring.version>5.1.5.RELEASE</spring.version>
   </properties>
+
+  <!-- Dependencies -->
 
   <dependencyManagement>
     <dependencies>
@@ -39,6 +46,8 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+
+  <!-- Build Settings -->
 
   <build>
     <finalName>${project.artifactId}-${project.version}-v</finalName>
@@ -142,6 +151,8 @@
       </plugin>
     </plugins>
   </build>
+
+  <!-- Project information -->
 
   <distributionManagement>
     <repository>
