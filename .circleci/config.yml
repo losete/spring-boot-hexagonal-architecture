@@ -6,66 +6,153 @@ executors:
       - image: maven
 
 jobs:
-  style_checker:
+  validate:
     executor: main_executor
     steps:
       - checkout
+      - run: find . -name 'pom.xml' | sort | xargs cat > aux.xml
+      - restore_cache:
+          keys:
+            - circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "aux.xml" }}
+            - circleci-java-spring-hexa-{{ .Branch }}-
+            - circleci-java-spring-hexa-
       - run:
-          name: Style test checkstyle (Google stylesheets)
-          command: mvn checkstyle:check
+          name: Validation and style test checkstyle (Google stylesheets)
+          command: mvn validate
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
   tests:
     executor: main_executor
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
+      - restore_cache:
+          keys:
+            - circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "aux.xml" }}
+            - circleci-java-spring-hexa-{{ .Branch }}-
+            - circleci-java-spring-hexa-
       - run:
-          name: Bug analysis with spotbugs plugin (because there is no tests)
+          name: Test analysis
           command: mvn test
+      - run:
+          name: Save tests results
+          command: |
+            mkdir -p tests_results/unit
+            find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp --parents {} ~/tests_results/unit \;
+      - store_test_results:
+          path: tests_results
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
   compile:
     executor: main_executor
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
+      - restore_cache:
+          keys:
+            - circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "aux.xml" }}
+            - circleci-java-spring-hexa-{{ .Branch }}-
+            - circleci-java-spring-hexa-
       - run:
           name: Project compilation
           command: mvn compile
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
   package:
     executor: main_executor
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
       - restore_cache:
-          key: circleci-java-spring-hexa-{{ cat `find "$(pwd)" -name pom.xml` | sha1sum }}
-
-      - run: mvn compile dependency:go-offline # gets the project dependencies
-
-      - save_cache: # saves the project dependencies
+          keys:
+            - circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "aux.xml" }}
+            - circleci-java-spring-hexa-{{ .Branch }}-
+            - circleci-java-spring-hexa-
+      - run: mvn package dependency:go-offline
+      - save_cache:
           paths:
             - ~/.m2
-          key: circleci-java-spring-hexa-{{ cat `find "$(pwd)" -name pom.xml` | sha1sum }}
-      - run: mvn package
+          key: circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "aux.xml" }}
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  verify:
+    executor: main_executor
+    steps:
+      - attach_workspace:
+          at: .
+      - restore_cache:
+          keys:
+            - circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "aux.xml" }}
+            - circleci-java-spring-hexa-{{ .Branch }}-
+            - circleci-java-spring-hexa-
+      - run:
+          name: Verification (including spotbugs)
+          command: mvn verify
+      - run:
+          name: Save checkstyle results
+          command: |
+            mkdir check_results
+            find . -type f -regex ".*/target/checkstyle-result.xml" -not -path "./check_results/*" -exec cp --parents {} check_results/ \;
+      - run:
+          name: Save spotbugs results
+          command: find . -type f -regex ".*/target/spotbugsXml.xml" -not -path "./check_results/*" -exec cp --parents {} check_results/ \;
+      - run:
+          name: Package tests
+          command: tar -cvzf results.tar.gz check_results
+      - store_artifacts:
+          path: results.tar.gz
+          destination: results.tar.gz
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
   deploy:
     executor: main_executor
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
+      - restore_cache:
+          keys:
+            - circleci-java-spring-hexa-{{ .Branch }}-{{ checksum "~/aux.xml" }}
+            - circleci-java-spring-hexa-{{ .Branch }}-
+            - circleci-java-spring-hexa-
       - run:
-           name: Creates the directory for the deploying
+           name: Creates the directory for the deploying (test)
            command: mkdir deploy
       - run:
-          name: Copies the final package to the remote repository
+          name: Copies the final package to the remote repository (test)
           command: mvn deploy
 
 workflows:
   general:
     jobs:
-      - style_checker
+      - validate
       - compile:
           requires:
-            - style_checker
+            - validate
       - tests:
           requires:
             - compile
       - package:
           requires:
-            - compile
+            - tests
+      - verify:
+          requires:
+            - package
       - deploy:
           requires:
-            - tests
-            - package
+            - verify
+          filters:
+            branches:
+              only:
+                - master
