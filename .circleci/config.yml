@@ -6,45 +6,81 @@ executors:
       - image: maven
 
 jobs:
-  style_checker:
+  validate:
     executor: main_executor
     steps:
       - checkout
       - run:
-          name: Style test checkstyle (Google stylesheets)
-          command: mvn checkstyle:check
+          name: Validation and style test checkstyle (Google stylesheets)
+          command: mvn validate
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
   tests:
     executor: main_executor
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
       - run:
-          name: Bug analysis with spotbugs plugin (because there is no tests)
+          name: Test analysis
           command: mvn test
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
   compile:
     executor: main_executor
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
       - run:
           name: Project compilation
           command: mvn compile
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
   package:
     executor: main_executor
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
+      - run: cat `find "$(pwd)" -name pom.xml` > ~/aux.xml
       - restore_cache:
-          key: circleci-java-spring-hexa-{{ cat `find "$(pwd)" -name pom.xml` | sha1sum }}
+          keys:
+            - circleci-java-spring-hexa-{{ checksum "~/aux.xml" }}
+            - circleci-java-spring-hexa-
 
-      - run: mvn compile dependency:go-offline # gets the project dependencies
+      - run: mvn package dependency:go-offline # gets the project dependencies
 
       - save_cache: # saves the project dependencies
           paths:
             - ~/.m2
-          key: circleci-java-spring-hexa-{{ cat `find "$(pwd)" -name pom.xml` | sha1sum }}
-      - run: mvn package
+          key: circleci-java-spring-hexa-{{ checksum "~/aux.xml" }}
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  verify:
+    executor: main_executor
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Verification (including spotbugs)
+          command: mvn verify
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
   deploy:
     executor: main_executor
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
       - run:
            name: Creates the directory for the deploying
            command: mkdir deploy
@@ -55,17 +91,23 @@ jobs:
 workflows:
   general:
     jobs:
-      - style_checker
+      - validate
       - compile:
           requires:
-            - style_checker
+            - validate
       - tests:
           requires:
             - compile
       - package:
           requires:
-            - compile
+            - tests
+      - verify:
+          requires:
+            - package
       - deploy:
           requires:
-            - tests
-            - package
+            - verify
+          filters:
+            branches:
+              only:
+                - master
