@@ -7,6 +7,33 @@
 <FindBugsFilter>
   <!-- Reason: Benchmarking == -->
   <Match>
-    <Class name="eteosf.hexagonal.benchmarks.BenchmarkTests" />
+    <Class name="eteosf.hexagonal.benchmarks.generated.BenchmarkTests_benchmarkTestGetDescription_jmhTest" />
+  </Match>
+  <Match>
+    <Class name="eteosf.hexagonal.benchmarks.generated.BenchmarkTests_benchmarkTestGetName_jmhTest" />
+  </Match>
+  <Match>
+    <Class name="eteosf.hexagonal.benchmarks.generated.BenchmarkTests_benchmarkTestGetProductID_jmhTest" />
+  </Match>
+  <Match>
+    <Class name="eteosf.hexagonal.benchmarks.generated.BenchmarkTests_benchmarkTestSetDescription_jmhTest" />
+  </Match>
+  <Match>
+    <Class name="eteosf.hexagonal.benchmarks.generated.BenchmarkTests_benchmarkTestSetName_jmhTest" />
+  </Match>
+  <Match>
+    <Class name="eteosf.hexagonal.benchmarks.generated.BenchmarkTests_benchmarkTestSetProductID_jmhTest" />
+  </Match>
+  <Match>
+    <Class name="eteosf.hexagonal.benchmarks.generated.BenchmarkTests_jmhType" />
+  </Match>
+  <Match>
+    <Class name="eteosf.hexagonal.benchmarks.generated.BenchmarkTests_jmhType_B1" />
+  </Match>
+  <Match>
+    <Class name="eteosf.hexagonal.benchmarks.generated.BenchmarkTests_jmhType_B2" />
+  </Match>
+  <Match>
+    <Class name="eteosf.hexagonal.benchmarks.generated.BenchmarkTests_jmhType_B3" />
   </Match>
 </FindBugsFilter>
