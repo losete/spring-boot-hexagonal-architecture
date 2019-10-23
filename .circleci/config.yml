@@ -133,6 +133,15 @@ jobs:
           name: Copies the final package to the remote repository (test)
           command: mvn deploy
 
+  benchmark:
+    executor: main_executor
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Runs the benchmarks
+          command: java -jar benchmarks/target/benchmarks.jar
+
 workflows:
   general:
     jobs:
@@ -155,4 +164,11 @@ workflows:
           filters:
             branches:
               only:
+                - master
+      - benchmark:
+          requires:
+            - package
+          filters:
+            branches:
+              ignore:
                 - master

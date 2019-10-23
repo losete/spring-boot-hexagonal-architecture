@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <FindBugsFilter>
   <Match>
-    <Source name="~benchmarks\..*"/>
+    <Class name="~.*\.BenchmarkTests" />
   </Match>
 </FindBugsFilter>
