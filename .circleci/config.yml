@@ -165,10 +165,29 @@ workflows:
             branches:
               only:
                 - master
+  benchmarking:
+    triggers:
+      - schedule:
+          # Executes benchmarks Sunday at 0 am
+          cron: "0 0 * * 0"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - validate
+      - compile:
+          requires:
+            - validate
+      - tests:
+          requires:
+            - compile
+      - package:
+          requires:
+            - tests
+      - verify:
+          requires:
+            - package
       - benchmark:
           requires:
             - package
-          filters:
-            branches:
-              ignore:
-                - master
