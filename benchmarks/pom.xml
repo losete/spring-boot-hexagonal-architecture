@@ -6,6 +6,7 @@
   <!-- POM Relationships -->
 
   <modelVersion>4.0.0</modelVersion>
+  <artifactId>benchmarks</artifactId>
 
   <parent>
     <groupId>eteosf.hexagonal</groupId>
@@ -13,22 +14,17 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>benchmarks</artifactId>
-  <packaging>jar</packaging>
-
-  <name>benchmarks</name>
-  <description>benchmarks</description>
-
-  <!-- Enviroment settings -->
-
-  <properties>
-    <jmh.version>1.21</jmh.version>
-    <uberjar.name>benchmarks</uberjar.name>
-  </properties>
-
-  <!-- Dependencies -->
-
   <dependencies>
+    <dependency>
+      <groupId>eteosf.hexagonal</groupId>
+      <artifactId>domain</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>RELEASE</version>
+    </dependency>
     <dependency>
       <groupId>org.openjdk.jmh</groupId>
       <artifactId>jmh-core</artifactId>
@@ -40,20 +36,13 @@
       <version>${jmh.version}</version>
       <scope>provided</scope>
     </dependency>
-    <dependency>
-      <groupId>eteosf.hexagonal</groupId>
-      <artifactId>domain</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter</artifactId>
-      <version>RELEASE</version>
-    </dependency>
   </dependencies>
+
+  <!-- /////////////////// -->
 
   <!-- Build Settings -->
 
+  <packaging>jar</packaging>
   <build>
     <plugins>
       <plugin>
@@ -96,4 +85,23 @@
       </plugin>
     </plugins>
   </build>
+
+  <!-- /////////////////// -->
+
+  <!-- Project information -->
+
+  <name>benchmarks</name>
+  <description>benchmarks</description>
+
+  <!-- /////////////////// -->
+
+  <!-- Build Environment -->
+
+  <properties>
+    <jmh.version>1.21</jmh.version>
+    <uberjar.name>benchmarks</uberjar.name>
+  </properties>
+
+  <!-- /////////////////// -->
+
 </project>
