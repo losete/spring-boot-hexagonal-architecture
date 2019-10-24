@@ -6,17 +6,13 @@
   <!-- POM Relationships -->
 
   <modelVersion>4.0.0</modelVersion>
+  <artifactId>adapter-rest</artifactId>
 
   <parent>
 	<groupId>eteosf.hexagonal</groupId>
 	<artifactId>infrastructure</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
   </parent>
-
-  <artifactId>adapter-rest</artifactId>
-
-  <name>adapter-rest</name>
-  <description>adapter-rest</description>
 
   <dependencies>
     <dependency>
@@ -38,6 +34,13 @@
       <artifactId>spring-beans</artifactId>
     </dependency>
   </dependencies>
+
+  <!-- /////////////////// -->
+
+  <!-- Project Information -->
+
+  <name>adapter-rest</name>
+  <description>adapter-rest</description>
 
   <!-- /////////////////// -->
 

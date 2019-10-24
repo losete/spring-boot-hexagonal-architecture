@@ -6,6 +6,7 @@
   <!-- POM Relationships -->
 
   <modelVersion>4.0.0</modelVersion>
+  <artifactId>adapter-persistence-spring-data-mongodb</artifactId>
 
   <parent>
     <groupId>eteosf.hexagonal</groupId>
@@ -13,7 +14,9 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>adapter-persistence-spring-data-mongodb</artifactId>
+  <!-- /////////////////// -->
+
+  <!-- Project Information -->
 
   <name>adapter-persistence-spring-data-mongodb</name>
   <description>adapter-persistence-spring-data-mongodb</description>

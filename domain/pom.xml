@@ -6,17 +6,13 @@
   <!-- POM Relationships -->
 
   <modelVersion>4.0.0</modelVersion>
+  <artifactId>domain</artifactId>
 
   <parent>
     <groupId>eteosf.hexagonal</groupId>
     <artifactId>hexagonal-architecture-poc</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-
-  <artifactId>domain</artifactId>
-
-  <name>domain</name>
-  <description>domain</description>
 
   <dependencies>
     <dependency>
@@ -31,6 +27,13 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <!-- /////////////////// -->
+
+  <!-- Project Information -->
+
+  <name>domain</name>
+  <description>domain</description>
 
   <!-- /////////////////// -->
 
