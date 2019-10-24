@@ -25,4 +25,7 @@
     <module>adapter-persistence-spring-data-mongodb</module>
     <module>adapter-rest</module>
   </modules>
+
+  <!-- /////////////////// -->
+
 </project>

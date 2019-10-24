@@ -18,13 +18,13 @@
   <name>adapter-persistence-in-memory</name>
   <description>adapter-persistence-in-memory</description>
 
+  <!-- /////////////////// -->
+
   <!-- Enviroment settings -->
 
   <properties>
     <lombok.version>1.18.6</lombok.version>
   </properties>
-
-  <!-- Dependencies -->
 
   <dependencies>
     <dependency>
@@ -38,4 +38,7 @@
       <optional>true</optional>
     </dependency>
   </dependencies>
+
+  <!-- /////////////////// -->
+
 </project>

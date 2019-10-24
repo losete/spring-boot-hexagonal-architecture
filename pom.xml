@@ -22,6 +22,8 @@
     <module>bootloader</module>
   </modules>
 
+  <!-- /////////////////// -->
+
   <!-- Enviroment settings -->
 
   <properties>
@@ -32,8 +34,6 @@
     <spring-boot.version>2.1.8.RELEASE</spring-boot.version>
     <spring.version>5.1.5.RELEASE</spring.version>
   </properties>
-
-  <!-- Dependencies -->
 
   <dependencyManagement>
     <dependencies>
@@ -46,6 +46,8 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+
+  <!-- /////////////////// -->
 
   <!-- Build Settings -->
 
@@ -152,6 +154,8 @@
     </plugins>
   </build>
 
+  <!-- /////////////////// -->
+
   <!-- Project information -->
 
   <distributionManagement>
@@ -163,4 +167,7 @@
       <layout>default</layout>
     </repository>
   </distributionManagement>
+
+  <!-- /////////////////// -->
+
 </project>
